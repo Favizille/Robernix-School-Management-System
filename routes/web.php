@@ -2,12 +2,15 @@
 
 use App\Http\Controllers\ResultController;
 use App\Http\Controllers\ScoreController;
+use App\Http\Controllers\StudentController;
 use App\Http\Controllers\StudentResultController;
 use Illuminate\Support\Facades\Route;
 
 Route::get('/', function () {
     return view('welcome');
 });
+
+Route::get('/home', [StudentController::class, 'viewHome'])->name('home');
 
 // Route::middleware(['auth'])->group(function () {
 
