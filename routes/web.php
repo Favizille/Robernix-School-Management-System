@@ -1,13 +1,19 @@
 <?php
 
+use App\Http\Controllers\AdminController;
 use App\Http\Controllers\ResultController;
 use App\Http\Controllers\ScoreController;
+use App\Http\Controllers\StudentController;
 use App\Http\Controllers\StudentResultController;
 use Illuminate\Support\Facades\Route;
 
 Route::get('/', function () {
     return view('welcome');
 });
+
+Route::get('/home', [StudentController::class, 'viewHome'])->name('home');
+Route::get('/login', [StudentController::class, 'viewLogin'])->name('login');
+Route::get('/contact', [StudentController::class, 'viewContact'])->name('contact');
 
 // Route::middleware(['auth'])->group(function () {
 
@@ -22,6 +28,9 @@ Route::get('/', function () {
     Route::post('/admin/results/positions', [ResultController::class, 'generatePositions'])->name('admin.results.positions');
     Route::post('/admin/results/publish', [ResultController::class, 'togglePublish'])->name('admin.results.publish');
     Route::get('/admin/results/export', [ResultController::class, 'export'])->name('admin.results.export');
+
+    // Admin views
+    Route::get('/admin/register', [AdminController::class, 'viewRegister'])->name('register');
 
     // Student Routes
     Route::get('/my-results', [StudentResultController::class, 'show'])->name('student.results');
