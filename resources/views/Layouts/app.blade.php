@@ -5,42 +5,74 @@
     <title>School Management System</title>
     <meta name="viewport" content="width=device-width, initial-scale=1">
 
+    <!-- Fonts -->
+    <link href="https://fonts.googleapis.com/css?family=Lato:700%7CMontserrat:400,600" rel="stylesheet">
     <!-- Bootstrap 5 -->
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.5/font/bootstrap-icons.css" rel="stylesheet">
 
     <style>
         body {
-            background-color: #f4f6f9;
+            background-color: #F8FAFC;
+            font-family: 'Montserrat', sans-serif;
+            color: #374050;
         }
         .sidebar {
             height: 100vh;
-            background: #1f2937;
-            color: white;
+            background: #374050;
+            color: #E5E7EB;
             position: fixed;
             width: 240px;
         }
         .sidebar a {
-            color: #cbd5e1;
+            color: #CBD5E1;
             text-decoration: none;
             display: block;
-            padding: 12px 20px;
+            padding: 14px 22px;
+            transition: background 0.2s ease, color 0.2s ease;
         }
-        .sidebar a:hover {
-            background: #374151;
-            color: white;
+        .sidebar a:hover,
+        .sidebar a.active {
+            background: #FF6700;
+            color: #fff;
         }
         .content {
             margin-left: 240px;
             padding: 20px;
         }
         .navbar-custom {
-            background: white;
-            border-bottom: 1px solid #ddd;
+            background: #fff;
+            border-bottom: 1px solid #EBEBEB;
         }
         .card-custom {
             border: none;
-            border-radius: 10px;
-            box-shadow: 0px 4px 10px rgba(0,0,0,0.05);
+            border-radius: 16px;
+            box-shadow: 0px 18px 45px rgba(55, 64, 80, 0.08);
+            background: #fff;
+        }
+        .btn-primary {
+            background: #FF6700;
+            border-color: #FF6700;
+        }
+        .btn-primary:hover,
+        .btn-primary:focus {
+            background: #E25900;
+            border-color: #E25900;
+        }
+        .form-label {
+            font-weight: 600;
+            color: #374050;
+        }
+        .form-control:focus,
+        .form-select:focus {
+            border-color: #FF6700;
+            box-shadow: 0 0 0 0.15rem rgba(255, 103, 0, 0.2);
+        }
+        .text-muted {
+            color: #798696 !important;
+        }
+        .alert {
+            border-radius: 12px;
         }
     </style>
 </head>
@@ -52,7 +84,7 @@
         <h4 class="text-center py-3 border-bottom">SMS PANEL</h4>
 
         @if(auth()->user()->role === 'admin')
-            <a href="#">Dashboard</a>
+            <a href="{{ route('admin.dashboard') }}">Dashboard</a>
             <a href="{{ route('admin.results') }}">Manage Results</a>
         @endif
 

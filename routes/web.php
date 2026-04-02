@@ -18,19 +18,18 @@ Route::get('/contact', [StudentController::class, 'viewContact'])->name('contact
 // Route::middleware(['auth'])->group(function () {
 
     // Teacher Routes
-    Route::get('/admin/dashboard', [ScoreController::class, 'viewDashboard'])->name('dashboard.view');
     Route::get('/teacher/scores/create', [ScoreController::class, 'create'])->name('scores.create');
     Route::post('/teacher/scores', [ScoreController::class, 'store'])->name('scores.store');
 
     // Admin Routes
-    // In a real app, add middleware like 'role:admin'
-    Route::get('/admin/results', [ResultController::class, 'index'])->name('admin.results');
-    Route::post('/admin/results/positions', [ResultController::class, 'generatePositions'])->name('admin.results.positions');
-    Route::post('/admin/results/publish', [ResultController::class, 'togglePublish'])->name('admin.results.publish');
-    Route::get('/admin/results/export', [ResultController::class, 'export'])->name('admin.results.export');
-
-    // Admin views
-    Route::get('/admin/register', [AdminController::class, 'viewRegister'])->name('register');
+    Route::prefix('admin')->name('admin.')->group(function () {
+        Route::get('/dashboard', [AdminController::class, 'dashboard'])->name('dashboard');
+        Route::get('/results', [ResultController::class, 'index'])->name('results');
+        Route::post('/results/positions', [ResultController::class, 'generatePositions'])->name('results.positions');
+        Route::post('/results/publish', [ResultController::class, 'togglePublish'])->name('results.publish');
+        Route::get('/results/export', [ResultController::class, 'export'])->name('results.export');
+        Route::get('/register', [AdminController::class, 'viewRegister'])->name('register');
+    });
 
     // Student Routes
     Route::get('/my-results', [StudentResultController::class, 'show'])->name('student.results');

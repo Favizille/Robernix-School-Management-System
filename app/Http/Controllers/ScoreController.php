@@ -55,6 +55,20 @@ class ScoreController extends Controller
 
     public function viewDashboard()
     {
-        return view('admin/dashboard');
+        $totalStudents = User::where('role', 'student')->count();
+        $totalTeachers = User::where('role', 'teacher')->count();
+        $totalCourses = Course::count();
+        $totalScores = Score::count();
+        $activeTerm = Term::where('is_active', true)->first();
+        $latestScores = Score::with(['student', 'course', 'term'])->latest()->take(5)->get();
+
+        return view('admin.dashboard', compact(
+            'totalStudents',
+            'totalTeachers',
+            'totalCourses',
+            'totalScores',
+            'activeTerm',
+            'latestScores'
+        ));
     }
 }
