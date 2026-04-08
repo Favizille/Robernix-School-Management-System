@@ -21,6 +21,7 @@ class User extends Authenticatable
         'name',
         'email',
         'password',
+        'role',
     ];
 
     /**
@@ -44,5 +45,23 @@ class User extends Authenticatable
             'email_verified_at' => 'datetime',
             'password' => 'hashed',
         ];
+    }
+
+    public function scores()
+    {
+        return $this->hasMany(Score::class, 'student_id');
+    }
+
+    // Relationship: A student/teacher belongs to many courses
+    // Assuming a pivot table 'course_user' exists for registration
+    public function courses()
+    {
+        return $this->belongsToMany(Course::class, 'course_user');
+    }
+    
+    // Helper to check role
+    public function hasRole($role)
+    {
+        return $this->role === $role;
     }
 }
